@@ -123,9 +123,8 @@ class KitsuApi(private val client: OkHttpClient, interceptor: KitsuInterceptor) 
                 ),
             )
                 .awaitSuccess()
-                .let {
-                    true  // FIXME: Remove maybe?
-                }
+
+            true
         }
     }
 
