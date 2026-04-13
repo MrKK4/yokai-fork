@@ -58,7 +58,7 @@ abstract class BaseMigrationPresenter<T : BaseMigrationInterface>(
         val sortOrder = PreferenceValues.MigrationSourceOrder.fromPreference(preferences)
         val extensions = extensionManager.installedExtensionsFlow.value
         val obsoleteSources =
-            extensions.filter { it.isObsolete }.map { it.sources }.flatten().map { it.id }
+            extensions.filter { it.isObsolete }.flatMap { it.sources }.map { it.id }
 
         return sourceGroup
             .mapNotNull { if (it.key != LocalSource.ID) sourceManager.getOrStub(it.key) to it.value.size else null }

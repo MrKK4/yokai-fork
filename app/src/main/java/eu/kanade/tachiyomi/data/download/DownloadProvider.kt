@@ -104,7 +104,7 @@ class DownloadProvider(private val context: Context) {
     fun findChapterDirs(chapters: List<Chapter>, manga: Manga, source: Source): List<UniFile> {
         val mangaDir = findMangaDir(manga, source) ?: return emptyList()
         return chapters.mapNotNull { chapter ->
-            getValidChapterDirNames(chapter).map { listOf(it, "$it.cbz") }.flatten().asSequence()
+            getValidChapterDirNames(chapter).flatMap { listOf(it, "$it.cbz") }.asSequence()
                 .mapNotNull { mangaDir.findFile(it) }
                 .firstOrNull()
         }
