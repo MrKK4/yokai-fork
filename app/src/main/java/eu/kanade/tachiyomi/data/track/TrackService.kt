@@ -53,11 +53,11 @@ abstract class TrackService(val id: Long) {
 
     abstract fun getScoreList(): ImmutableList<String>
 
-    open fun indexToScore(index: Int): Float {
-        return index.toFloat()
+    open fun indexToScore(index: Int): Double {
+        return index.toDouble()
     }
 
-    open fun get10PointScore(score: Float): Float {
+    open fun get10PointScore(score: Double): Double {
         return score
     }
 

@@ -20,7 +20,7 @@ class TrackSearch : Track {
 
     override var total_chapters: Long = 0L
 
-    override var score: Float = 0f
+    override var score: Double = 0.0
 
     override var status: Int = 0
 

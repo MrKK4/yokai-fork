@@ -87,12 +87,12 @@ class MangaUpdates(private val context: Context, id: Long) : TrackService(id) {
 
     override fun getScoreList(): ImmutableList<String> = _scoreList
 
-    override fun indexToScore(index: Int): Float = if (index == 0) 0f else _scoreList[index].toFloat()
+    override fun indexToScore(index: Int): Double = if (index == 0) 0.0 else _scoreList[index].toDouble()
 
     override fun displayScore(track: Track): String = track.score.toString()
 
     override suspend fun add(track: Track): Track {
-        track.score = DEFAULT_SCORE.toFloat()
+        track.score = DEFAULT_SCORE.toDouble()
         track.status = DEFAULT_STATUS
         updateNewTrackInfo(track)
         api.addSeriesToList(track)
@@ -111,7 +111,7 @@ class MangaUpdates(private val context: Context, id: Long) : TrackService(id) {
             track.copyFrom(series, rating)
             update(track)
         } catch (e: Exception) {
-            track.score = 0f
+            track.score = 0.0
             add(track)
         }
     }
@@ -131,7 +131,7 @@ class MangaUpdates(private val context: Context, id: Long) : TrackService(id) {
 
     private fun Track.copyFrom(item: MUListItem, rating: MURating?): Track = apply {
         item.copyTo(this)
-        score = rating?.rating ?: 0f
+        score = rating?.rating?.toDouble() ?: 0.0
     }
 
     override fun canRemoveFromService(): Boolean = true

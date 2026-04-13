@@ -23,7 +23,7 @@ fun Track.toApiScore(): String = when (preferences.anilistScoreType().get()) {
     "POINT_100" -> score.toInt().toString()
 // 5 stars
     "POINT_5" -> when {
-        score == 0f -> "0"
+        score == 0.0 -> "0"
         score < 30 -> "1"
         score < 50 -> "2"
         score < 70 -> "3"
@@ -32,7 +32,7 @@ fun Track.toApiScore(): String = when (preferences.anilistScoreType().get()) {
     }
 // Smiley
     "POINT_3" -> when {
-        score == 0f -> "0"
+        score == 0.0 -> "0"
         score <= 35 -> ":("
         score <= 60 -> ":|"
         else -> ":)"

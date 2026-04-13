@@ -80,7 +80,7 @@ class StatsPresenter(
         return downloadManager.getDownloadCount(manga.manga)
     }
 
-    fun get10PointScore(track: Track): Float? {
+    fun get10PointScore(track: Track): Double? {
         val service = trackManager.getService(track.sync_id)
         return service?.get10PointScore(track.score)
     }

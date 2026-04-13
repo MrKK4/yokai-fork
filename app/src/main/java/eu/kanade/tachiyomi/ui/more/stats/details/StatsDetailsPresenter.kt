@@ -527,7 +527,7 @@ class StatsDetailsPresenter(
      */
     private suspend fun LibraryManga.getMeanScoreToInt(): Int? {
         val mangaTracks = getTracks(this.manga)
-        val scoresList = mangaTracks.filter { it.score > 0 }
+        val scoresList = mangaTracks.filter { it.score > 0.0 }
             .mapNotNull { it.get10PointScore() }
         return if (scoresList.isEmpty()) null else scoresList.average().roundToInt().coerceIn(1..10)
     }
@@ -536,7 +536,7 @@ class StatsDetailsPresenter(
      * Get mean score of a tracker
      */
     private fun List<Track?>.getMeanScoreByTracker(): Double? {
-        val scoresList = this.filter { (it?.score ?: 0f) > 0 }
+        val scoresList = this.filter { (it?.score ?: 0.0) > 0.0 }
             .mapNotNull { it?.get10PointScore() }
         return if (scoresList.isEmpty()) null else scoresList.average()
     }
@@ -544,7 +544,7 @@ class StatsDetailsPresenter(
     /**
      * Convert the score to a 10 point score
      */
-    private fun Track.get10PointScore(): Float? {
+    private fun Track.get10PointScore(): Double? {
         val service = trackManager.getService(this.sync_id)
         return service?.get10PointScore(this.score)
     }

@@ -561,7 +561,7 @@ class LibraryPresenter(
     /**
      * Convert the score to a 10 point score
      */
-    private fun Track.get10PointScore(): Float? {
+    private fun Track.get10PointScore(): Double? {
         val service = trackManager.getService(this.sync_id)
         return service?.get10PointScore(this.score)
     }

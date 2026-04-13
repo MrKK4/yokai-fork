@@ -19,7 +19,7 @@ data class SMUserListEntry(
             total_chapters = manga.chapters
             library_id = this@SMUserListEntry.id
             last_chapter_read = this@SMUserListEntry.chapters.toFloat()
-            score = this@SMUserListEntry.score.toFloat()
+            score = this@SMUserListEntry.score.toDouble()
             status = toTrackStatus(this@SMUserListEntry.status)
             tracking_url = ShikimoriApi.BASE_URL + manga.url
         }

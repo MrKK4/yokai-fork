@@ -10,6 +10,6 @@ data class MURating(
 
 fun MURating.copyTo(track: Track): Track {
     return track.apply {
-        this.score = rating ?: 0f
+        this.score = rating?.toDouble() ?: 0.0
     }
 }

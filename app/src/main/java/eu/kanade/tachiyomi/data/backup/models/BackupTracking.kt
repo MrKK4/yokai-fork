@@ -21,7 +21,7 @@ data class BackupTracking(
     // lastChapterRead is called last read, and it has been changed to a float in 1.x
     @ProtoNumber(6) var lastChapterRead: Float = 0F,
     @ProtoNumber(7) var totalChapters: Int = 0,
-    @ProtoNumber(8) var score: Float = 0F,
+    @ProtoNumber(8) var score: Double = 0.0,
     @ProtoNumber(9) var status: Int = 0,
     // startedReadingDate is called startReadTime in 1.x
     @ProtoNumber(10) var startedReadingDate: Long = 0,

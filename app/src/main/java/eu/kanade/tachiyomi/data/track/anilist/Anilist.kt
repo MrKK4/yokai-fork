@@ -113,43 +113,43 @@ class Anilist(private val context: Context, id: Long) : TrackService(id) {
         }
     }
 
-    override fun indexToScore(index: Int): Float {
+    override fun indexToScore(index: Int): Double {
         return when (scorePreference.get()) {
             // 10 point
-            POINT_10 -> index * 10f
+            POINT_10 -> index * 10.0
             // 100 point
-            POINT_100 -> index.toFloat()
+            POINT_100 -> index.toDouble()
             // 5 stars
             POINT_5 -> when (index) {
-                0 -> 0f
-                else -> index * 20f - 10f
+                0 -> 0.0
+                else -> index * 20.0 - 10.0
             }
             // Smiley
             POINT_3 -> when (index) {
-                0 -> 0f
-                else -> index * 25f + 10f
+                0 -> 0.0
+                else -> index * 25.0 + 10.0
             }
             // 10 point decimal
-            POINT_10_DECIMAL -> index.toFloat()
+            POINT_10_DECIMAL -> index.toDouble()
             else -> throw Exception("Unknown score type")
         }
     }
 
-    override fun get10PointScore(score: Float) = score / 10
+    override fun get10PointScore(score: Double) = score / 10
 
     override fun displayScore(track: Track): String {
         val score = track.score
 
         return when (scorePreference.get()) {
             POINT_5 -> when (score) {
-                0f -> "0 ★"
+                0.0 -> "0 ★"
                 else -> "${((score + 10) / 20).toInt()} ★"
             }
 
             POINT_3 -> when {
-                score == 0f -> "0"
-                score <= 35 -> "😦"
-                score <= 60 -> "😐"
+                score == 0.0 -> "0"
+                score <= 35.0 -> "😦"
+                score <= 60.0 -> "😐"
                 else -> "😊"
             }
 
@@ -158,7 +158,7 @@ class Anilist(private val context: Context, id: Long) : TrackService(id) {
     }
 
     override suspend fun add(track: Track): Track {
-        track.score = DEFAULT_SCORE.toFloat()
+        track.score = DEFAULT_SCORE.toDouble()
         track.status = DEFAULT_STATUS
         updateNewTrackInfo(track)
         return api.addLibManga(track)

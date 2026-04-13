@@ -43,7 +43,7 @@ data class KitsuAlgoliaSearchItem(
             cover_url = posterImage?.original ?: ""
             summary = synopsis ?: ""
             tracking_url = KitsuApi.mangaUrl(media_id)
-            score = averageRating?.toFloat() ?: -1.0F
+            score = averageRating?.toDouble() ?: -1.0
             publishing_status = if (endDate == null) "Publishing" else "Finished"
             publishing_type = subtype ?: ""
             start_date = startDate?.let {

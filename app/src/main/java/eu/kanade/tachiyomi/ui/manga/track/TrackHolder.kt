@@ -92,7 +92,7 @@ class TrackHolder(view: View, adapter: TrackAdapter) : BaseViewHolder(view) {
             if (supportsScoring) {
                 with(binding.trackScore) {
                     text =
-                        if (track.score == 0f) {
+                        if (track.score == 0.0) {
                             binding.trackScore.context.getString(MR.strings.score)
                         } else {
                             item.service.displayScore(track)
@@ -103,8 +103,8 @@ class TrackHolder(view: View, adapter: TrackAdapter) : BaseViewHolder(view) {
                         starIcon(track),
                         0,
                     )
-                    setTextColor(enabledTextColor(track.score != 0f))
-                    TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(enabledTextColor(track.score != 0f)))
+                    setTextColor(enabledTextColor(track.score != 0.0))
+                    TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(enabledTextColor(track.score != 0.0)))
                 }
             }
             binding.scoreContainer.isVisible = supportsScoring
@@ -145,7 +145,7 @@ class TrackHolder(view: View, adapter: TrackAdapter) : BaseViewHolder(view) {
     }
 
     private fun starIcon(track: Track): Int {
-        return if (track.score == 0f || binding.trackScore.text.toString().toFloatOrNull() != null) {
+        return if (track.score == 0.0 || binding.trackScore.text.toString().toFloatOrNull() != null) {
             R.drawable.ic_star_12dp
         } else {
             0
