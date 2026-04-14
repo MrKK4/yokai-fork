@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -112,15 +113,16 @@ suspend fun DialogHostState.awaitCreateBackup(
             Box {
                 val state = rememberLazyListState()
                 LazyColumn(state = state) {
-                    BackupOptions.getEntries().forEach { option ->
-                        item {
-                            LabeledCheckbox(
-                                label = stringResource(option.label),
-                                checked = option.getter(options),
-                                onCheckedChange = { options = option.setter(options, it) },
-                                enabled = option.enabled(options),
-                            )
-                        }
+                    items(
+                        items = BackupOptions.getEntries(),
+                        key = { it.label.resourceId.toString() },
+                    ) { option ->
+                        LabeledCheckbox(
+                            label = stringResource(option.label),
+                            checked = option.getter(options),
+                            onCheckedChange = { options = option.setter(options, it) },
+                            enabled = option.enabled(options),
+                        )
                     }
                 }
             }
