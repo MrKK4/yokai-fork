@@ -19,11 +19,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.launch
 import android.R as AR
+import yokai.i18n.MR
+import dev.icerock.moko.resources.compose.stringResource
 
 
 @Composable
@@ -58,10 +59,16 @@ fun EditTextPreferenceWidget(
                     onValueChange = { textFieldValue = it },
                     trailingIcon = {
                         if (textFieldValue.text.isBlank()) {
-                            Icon(imageVector = Icons.Filled.Error, contentDescription = null)
+                            Icon(
+                                imageVector = Icons.Filled.Error,
+                                contentDescription = stringResource(MR.strings.invalid_location_generic),
+                            )
                         } else {
                             IconButton(onClick = { textFieldValue = TextFieldValue("") }) {
-                                Icon(imageVector = Icons.Filled.Cancel, contentDescription = null)
+                                Icon(
+                                    imageVector = Icons.Filled.Cancel,
+                                    contentDescription = stringResource(MR.strings.cancel),
+                                )
                             }
                         }
                     },
@@ -84,12 +91,12 @@ fun EditTextPreferenceWidget(
                         }
                     },
                 ) {
-                    Text(text = stringResource(AR.string.ok))
+                    Text(text = androidx.compose.ui.res.stringResource(AR.string.ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismissRequest) {
-                    Text(text = stringResource(AR.string.cancel))
+                    Text(text = androidx.compose.ui.res.stringResource(AR.string.cancel))
                 }
             },
         )
