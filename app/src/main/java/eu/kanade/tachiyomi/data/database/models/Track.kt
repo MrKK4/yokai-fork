@@ -20,7 +20,7 @@ interface Track : Serializable {
 
     var total_chapters: Long
 
-    var score: Float
+    var score: Double
 
     var status: Int
 
@@ -66,7 +66,7 @@ interface Track : Serializable {
             this.title = title
             this.last_chapter_read = lastChapterRead.toFloat()
             this.total_chapters = totalChapters
-            this.score = score.toFloat()
+            this.score = score
             this.status = status.toInt()
             this.started_reading_date = startDate
             this.finished_reading_date = finishDate

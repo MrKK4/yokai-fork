@@ -42,7 +42,7 @@ class Bangumi(private val context: Context, id: Long) : TrackService(id) {
     }
 
     override suspend fun add(track: Track): Track {
-        track.score = DEFAULT_SCORE.toFloat()
+        track.score = DEFAULT_SCORE.toDouble()
         track.status = DEFAULT_STATUS
         updateNewTrackInfo(track)
         api.addLibManga(track)

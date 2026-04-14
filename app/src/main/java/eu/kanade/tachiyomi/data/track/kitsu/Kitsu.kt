@@ -85,8 +85,8 @@ class Kitsu(private val context: Context, id: Long) : TrackService(id) {
         return (listOf("0") + IntRange(2, 20).map { df.format(it / 2f) }).toImmutableList()
     }
 
-    override fun indexToScore(index: Int): Float {
-        return if (index > 0) (index + 1) / 2f else 0f
+    override fun indexToScore(index: Int): Double {
+        return if (index > 0) (index + 1) / 2.0 else 0.0
     }
 
     override fun displayScore(track: Track): String {
@@ -100,7 +100,7 @@ class Kitsu(private val context: Context, id: Long) : TrackService(id) {
     }
 
     override suspend fun add(track: Track): Track {
-        track.score = DEFAULT_SCORE
+        track.score = DEFAULT_SCORE.toDouble().toDouble()
         track.status = DEFAULT_STATUS
         updateNewTrackInfo(track)
         return api.addLibManga(track, getUserId())

@@ -26,7 +26,7 @@ data class ALManga(
         total_chapters = totalChapters
         cover_url = imageUrl
         summary = description?.htmlDecode() ?: ""
-        score = averageScore.toFloat()  // TODO: Turn to Double
+        score = averageScore.toDouble()
         tracking_url = AnilistApi.mangaUrl(media_id)
         publishing_status = publishingStatus
         publishing_type = format
@@ -54,7 +54,7 @@ data class ALUserManga(
         media_id = manga.remoteId
         title = manga.title
         status = toTrackStatus()
-        score = scoreRaw.toFloat()  // TODO: Turn to Double
+        score = scoreRaw.toDouble()
         started_reading_date = startDateFuzzy
         finished_reading_date = completedDateFuzzy
         last_chapter_read = chaptersRead.toFloat()  // TODO: Turn to Double

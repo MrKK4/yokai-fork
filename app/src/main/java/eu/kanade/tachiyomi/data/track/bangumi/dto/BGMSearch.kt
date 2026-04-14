@@ -33,7 +33,7 @@ data class BGMSearchItem(
         } else {
             this@BGMSearchItem.summary.orEmpty()
         }
-        score = rating?.score?.toFloat() ?: -1.0F
+        score = rating?.score?.toDouble() ?: -1.0
         tracking_url = url
         total_chapters = epsCount ?: 0
     }

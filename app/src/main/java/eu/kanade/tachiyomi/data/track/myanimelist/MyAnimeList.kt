@@ -76,7 +76,7 @@ class MyAnimeList(private val context: Context, id: Long) : TrackService(id) {
 
     override suspend fun add(track: Track): Track {
         track.status = READING
-        track.score = 0F
+        track.score = 0.0
         updateNewTrackInfo(track)
         return api.updateItem(track)
     }

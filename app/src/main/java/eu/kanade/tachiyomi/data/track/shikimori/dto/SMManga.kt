@@ -25,7 +25,7 @@ data class SMManga(
             total_chapters = chapters
             cover_url = ShikimoriApi.BASE_URL + image.preview
             summary = ""
-            score = this@SMManga.score.toFloat()
+            score = this@SMManga.score.toDouble()
             tracking_url = ShikimoriApi.BASE_URL + url
             publishing_status = this@SMManga.status
             publishing_type = kind
