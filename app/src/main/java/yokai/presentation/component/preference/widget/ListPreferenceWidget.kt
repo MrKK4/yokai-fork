@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.AlertDialog
@@ -54,18 +55,19 @@ fun <T> ListPreferenceWidget(
                 Box {
                     val state = rememberLazyListState()
                     LazyColumn(state = state) {
-                        entries.forEach { current ->
-                            val isSelected = value == current.key
-                            item {
-                                DialogRow(
-                                    label = current.value,
-                                    isSelected = isSelected,
-                                    onSelected = {
-                                        onValueChange(current.key!!)
-                                        isDialogShown = false
-                                    },
-                                )
-                            }
+                        items(
+                            items = entries.toList(),
+                            key = { it.first.toString() }, // use string representation for keys
+                        ) { current ->
+                            val isSelected = value == current.first
+                            DialogRow(
+                                label = current.second,
+                                isSelected = isSelected,
+                                onSelected = {
+                                    onValueChange(current.first!!)
+                                    isDialogShown = false
+                                },
+                            )
                         }
                     }
                     if (state.canScrollBackward) HorizontalDivider(modifier = Modifier.align(Alignment.TopCenter))
