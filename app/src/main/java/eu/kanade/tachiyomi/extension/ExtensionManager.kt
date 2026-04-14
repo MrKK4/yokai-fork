@@ -204,7 +204,7 @@ class ExtensionManager(
 
     private fun setupAvailableSourcesMap() {
         availableSources = hashMapOf()
-        _availableExtensionsFlow.value.map { it.sources }.flatten().forEach {
+        _availableExtensionsFlow.value.flatMap { it.sources }.forEach {
             availableSources[it.id] = it
         }
     }

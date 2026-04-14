@@ -1095,12 +1095,12 @@ class LibraryPresenter(
                         listOfNotNull(
                             manga.manga.author.takeUnless { it.isNullOrBlank() },
                             manga.manga.artist.takeUnless { it.isNullOrBlank() },
-                        ).map {
+                        ).flatMap {
                             it.split(",", "/", " x ", " - ", ignoreCase = true).mapNotNull { name ->
                                 val author = name.trim()
                                 author.ifBlank { null }
                             }
-                        }.flatten().distinct().map {
+                        }.distinct().map {
                             LibraryMangaItem(manga, makeOrGetHeader(it, true), viewContext)
                         }
                     }
@@ -1533,12 +1533,12 @@ class LibraryPresenter(
         mangaList: HashMap<Manga, List<Chapter>>,
     ) {
         presenterScope.launchNonCancellableIO {
-            val updates = mangaList.values.map { chapters ->
+            val updates = mangaList.values.flatMap { chapters ->
                 chapters.mapNotNull {
                     if (it.id == null) return@mapNotNull null
                     ChapterUpdate(it.id!!, read = it.read, lastPageRead = it.last_page_read.toLong())
                 }
-            }.flatten()
+            }
             updateChapter.awaitAll(updates)
             updateLibrary()
         }
@@ -1617,8 +1617,7 @@ class LibraryPresenter(
                     }
                     in randomTags -> {
                         val tags = RecentsPresenter.getRecentManga(true)
-                            .map { it.first.genre.orEmpty().split(",").map(String::trim) }
-                            .flatten()
+                            .flatMap { it.first.genre.orEmpty().split(",").map(String::trim) }
                             .filter { it.isNotBlank() }
                         val distinctTags = tags.distinct()
                         if (value in randomGroupOfTags && distinctTags.size > 6) {

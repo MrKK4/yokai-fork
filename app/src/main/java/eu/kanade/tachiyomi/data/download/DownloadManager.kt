@@ -374,7 +374,7 @@ class DownloadManager(
      * @param newChapter the target chapter with the new name.
      */
     suspend fun renameChapter(source: Source, manga: Manga, oldChapter: Chapter, newChapter: Chapter) {
-        val oldNames = provider.getValidChapterDirNames(oldChapter).map { listOf(it, "$it.cbz") }.flatten()
+        val oldNames = provider.getValidChapterDirNames(oldChapter).flatMap { listOf(it, "$it.cbz") }
         var newName = provider.getChapterDirName(newChapter, includeId = downloadPreferences.downloadWithId().get())
         val mangaDir = provider.getMangaDir(manga, source)
 
