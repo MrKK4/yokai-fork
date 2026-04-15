@@ -1,6 +1,7 @@
 package yokai.presentation.component.preference.widget
 
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -42,21 +43,22 @@ fun MultiSelectListPreferenceWidget(
             title = { Text(text = preference.title) },
             text = {
                 LazyColumn {
-                    preference.entries.forEach { current ->
-                        item {
-                            val isSelected = selected.contains(current.key)
-                            LabeledCheckbox(
-                                label = current.value,
-                                checked = isSelected,
-                                onCheckedChange = {
-                                    if (it) {
-                                        selected.add(current.key)
-                                    } else {
-                                        selected.remove(current.key)
-                                    }
-                                },
-                            )
-                        }
+                    items(
+                        items = preference.entries.entries.toList(),
+                        key = { it.key },
+                    ) { current ->
+                        val isSelected = selected.contains(current.key)
+                        LabeledCheckbox(
+                            label = current.value,
+                            checked = isSelected,
+                            onCheckedChange = {
+                                if (it) {
+                                    selected.add(current.key)
+                                } else {
+                                    selected.remove(current.key)
+                                }
+                            },
+                        )
                     }
                 }
             },
