@@ -33,6 +33,9 @@ import androidx.compose.ui.unit.sp
 import eu.kanade.tachiyomi.util.compose.textHint
 import yokai.domain.extension.repo.model.ExtensionRepo
 import yokai.presentation.component.Gap
+import yokai.presentation.component.ToolTipButton
+import dev.icerock.moko.resources.compose.stringResource
+import yokai.i18n.MR
 import yokai.presentation.theme.Size
 
 // TODO: Redesign
@@ -74,13 +77,11 @@ fun ExtensionRepoItem(
                 fontSize = 16.sp,
             )
         }
-        IconButton(onClick = { onDeleteClick(extensionRepo.baseUrl) }) {
-            Icon(
-                imageVector = Icons.Filled.Delete,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground,
-            )
-        }
+        ToolTipButton(
+            toolTipLabel = stringResource(MR.strings.delete),
+            icon = Icons.Filled.Delete,
+            buttonClicked = { onDeleteClick(extensionRepo.baseUrl) }
+        )
     }
 }
 
@@ -134,20 +135,17 @@ fun ExtensionRepoInput(
             textStyle = TextStyle(fontSize = 16.sp),
             colors = colors,
         )
-        IconButton(
-            onClick = { onAddClick(inputText) },
-            enabled = inputText.isNotEmpty(),
-        ) {
-            if (!isLoading)
-                Icon(
-                    imageVector = Icons.Filled.Check,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary,
-                )
-            else
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.primary,
-                )
+        if (!isLoading) {
+            ToolTipButton(
+                toolTipLabel = stringResource(MR.strings.add),
+                icon = Icons.Filled.Check,
+                buttonClicked = { onAddClick(inputText) },
+                isEnabled = inputText.isNotEmpty()
+            )
+        } else {
+            CircularProgressIndicator(
+                color = MaterialTheme.colorScheme.primary,
+            )
         }
     }
 }
