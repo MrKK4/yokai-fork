@@ -1,3 +1,3 @@
-## 2025-04-13 - Optimize map+flatten to flatMap
-**Learning:** Found several instances of `.map { ... }.flatten()` being used across various components in the Android application. In Kotlin, using `map` followed by `flatten` creates an unnecessary intermediate collection.
-**Action:** Replaced these occurrences with `.flatMap { ... }` which is functionally equivalent but avoids allocating an intermediate collection, improving memory efficiency and saving processing cycles.
+## 2024-05-19 - [LazyColumn Optimization]
+**Learning:** In Jetpack Compose, using `list.forEach { item { ... } }` inside a `LazyColumn` forces Compose to treat each element as an individual unkeyed item, leading to unnecessary recompositions and node re-creations when the list updates. Replacing it with `items(items = list, key = { it.stableId }) { ... }` ensures efficient list item recycling.
+**Action:** Always verify loops inside `LazyColumn` or `LazyRow` and replace them with `items()` or `itemsIndexed()` leveraging stable keys.

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.AlertDialog
@@ -54,18 +55,16 @@ fun <T> ListPreferenceWidget(
                 Box {
                     val state = rememberLazyListState()
                     LazyColumn(state = state) {
-                        entries.forEach { current ->
+                        items(entries.entries.toList()) { current ->
                             val isSelected = value == current.key
-                            item {
-                                DialogRow(
-                                    label = current.value,
-                                    isSelected = isSelected,
-                                    onSelected = {
-                                        onValueChange(current.key!!)
-                                        isDialogShown = false
-                                    },
-                                )
-                            }
+                            DialogRow(
+                                label = current.value,
+                                isSelected = isSelected,
+                                onSelected = {
+                                    onValueChange(current.key!!)
+                                    isDialogShown = false
+                                },
+                            )
                         }
                     }
                     if (state.canScrollBackward) HorizontalDivider(modifier = Modifier.align(Alignment.TopCenter))
